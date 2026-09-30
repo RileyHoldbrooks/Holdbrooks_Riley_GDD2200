@@ -1,0 +1,86 @@
+using System; 
+
+public class Game {
+    public static void Main(string[] args) {
+        warrior play1= new warrior();
+        wizard play2= new wizard();
+        Game game = new Game();
+        game.fight(play1, play2);
+    }
+    public void fight(player play1, player play2){
+        Console.WriteLine("Warrior vs Wizard Fight!");
+    //code for combat
+        while(play1.getHP()>0 && play2.getHP()>0){
+            //random damage
+            play1.randomDamage(10, 20);
+            play2.randomDamage(5, 10);
+            
+            //grabs damage value from p1
+            int damage1 = play1.getATK();
+            Console.WriteLine("Warrior Damage:");
+            Console.WriteLine(damage1);
+            //subtract damage from p2
+            Console.WriteLine("Wizard HP:");
+            int play2HP = play2.getHP() - damage1;
+            Console.WriteLine(play2HP);
+            //sets new hp for p2
+            play2.setHP(play2HP);
+            if(play2.getHP() > 0){
+                //gets damage from p2
+                int damage2 = play2.getATK();
+                Console.WriteLine("Wizard Damage:");
+                Console.WriteLine(damage2);
+                //substract damage from p1
+                Console.WriteLine("Warrior HP:");
+                int play1HP = play1.getHP() - damage2;
+                Console.WriteLine(play1HP);
+                //sets new hp for p1
+                play1.setHP(play1HP);
+            }
+        }
+            if(play1.getHP() <= 0){
+                Console.WriteLine("Wizard Wins!");
+            }
+                if(play2.getHP() <= 0){
+                Console.WriteLine("Warrior Wins!");
+            }
+    }
+}
+//abstract class for players
+public abstract class player {
+    //values for game
+ private int HP;
+    private int ATK;
+    Random rnd = new Random();
+    public player(){
+        HP = 20;
+        ATK = 5;
+    }
+    //returns HP
+    public int getHP(){
+        return HP;
+    }
+    public void setHP(int new_HP){
+        HP = new_HP;
+    }
+    //returns attack
+    public int getATK(){
+        return ATK;
+    }
+    public void setATK(int new_ATK){
+        ATK = new_ATK;
+    }
+    //random damage 
+    public void randomDamage(int min_DMG, int max_DMG){
+        ATK = rnd.Next(min_DMG, max_DMG);
+    }
+}
+//class for warrior that extends player
+public class warrior:player{
+    
+}
+
+//class for wizard that extends player
+public class wizard:player{
+    
+}
